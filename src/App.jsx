@@ -1,9 +1,10 @@
-import './App.css';
+import 'App.css';
+import { Matrix } from 'components';
 
 export const App = () => {
   return (
     <div className='App'>
-      <h2>Wordle</h2>
+      <Matrix />
     </div>
   );
 };

@@ -1,3 +1,25 @@
 .App {
   text-align: center;
 }
+
+.matrix {
+  margin: 1rem auto;
+  width: fit-content;
+}
+
+.row {
+  display: flex;
+}
+
+.letter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  padding: 1rem;
+  margin: 2px;
+  border: 2px solid var(--clr-matrix-border);
+  font-weight: 800;
+  font-size: 2rem;
+}
