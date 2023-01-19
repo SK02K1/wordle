@@ -1,4 +1,6 @@
+import confetti from 'canvas-confetti';
 import { createSlice } from '@reduxjs/toolkit';
+import { confettiColors } from 'constants';
 
 const name = 'wordle';
 
@@ -7,6 +9,7 @@ const initialState = {
   guessCounter: 0,
   guesses: Array.from({ length: 6 }, () => ''),
   showResultOfGuess: [],
+  isWordGuessed: false,
 };
 
 const wordleSlice = createSlice({
@@ -14,9 +17,9 @@ const wordleSlice = createSlice({
   initialState,
   reducers: {
     appendKeyToCurrentGuesss: (state, { payload }) => {
-      const { guessCounter, guesses } = state;
+      const { guessCounter, guesses, isWordGuessed } = state;
       const currentGuess = guesses[guessCounter];
-      if (currentGuess?.length < 5) {
+      if (currentGuess?.length < 5 && !isWordGuessed) {
         guesses[guessCounter] = currentGuess + payload.key;
       }
     },
@@ -28,11 +31,15 @@ const wordleSlice = createSlice({
       }
     },
     submitCurrentGuess: (state, _) => {
-      const { guessCounter, guesses, showResultOfGuess } = state;
+      const { word, guessCounter, guesses, showResultOfGuess } = state;
       const currentGuess = guesses[guessCounter];
       if (currentGuess?.length === 5 && guessCounter < 6) {
         showResultOfGuess.push(guessCounter + 1);
         state.guessCounter += 1;
+        if (currentGuess === word) {
+          confetti({ particleCount: 500, spread: 180, confettiColors });
+          state.isWordGuessed = true;
+        }
       }
     },
   },
