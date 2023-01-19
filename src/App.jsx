@@ -1,6 +1,6 @@
 import 'App.css';
 import { useEffect } from 'react';
-import { Keyboard, Matrix } from 'components';
+import { Header, Keyboard, Matrix } from 'components';
 import { useKeyboard } from 'hooks';
 
 export const App = () => {
@@ -12,6 +12,7 @@ export const App = () => {
 
   return (
     <div className='App'>
+      <Header />
       <Matrix />
       <Keyboard />
     </div>
