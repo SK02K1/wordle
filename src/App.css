@@ -1,10 +1,17 @@
-.App {
-  text-align: center;
+.App,
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.matrix {
-  margin: 1rem auto;
-  width: fit-content;
+.App {
+  height: 90vh;
+}
+
+.matrix,
+.keyboard {
+  margin: 1rem;
 }
 
 .row {
@@ -15,11 +22,49 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50px;
-  height: 50px;
+  width: 58px;
+  height: 58px;
   padding: 1rem;
   margin: 2px;
   border: 2px solid var(--clr-matrix-border);
   font-weight: 800;
   font-size: 2rem;
+}
+
+[data-show_result='true'] {
+  color: white;
+  border: none;
+}
+
+[data-show_result='true'][data-present_in_word='false'] {
+  background-color: #787c7e;
+}
+
+[data-show_result='true'][data-present_in_word='true'][data-in_correct_position='false'] {
+  background-color: #c9b458;
+}
+
+[data-show_result='true'][data-present_in_word='true'][data-in_correct_position='true'] {
+  background-color: #6aa964;
+}
+
+.keyboard {
+  margin-top: auto;
+}
+
+.btn-key {
+  background-color: #d3d6da;
+  font-size: 0.85rem;
+  border: none;
+  padding: 1rem 0.6rem;
+  margin: 0.2rem;
+  border-radius: 5px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 500px) {
+  .btn-key {
+    padding: 1.25rem 1rem;
+  }
 }

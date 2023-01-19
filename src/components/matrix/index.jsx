@@ -1,7 +1,8 @@
 import { useSelector } from 'react-redux';
 
 export const Matrix = () => {
-  const { guesses } = useSelector((store) => store.wordle);
+  const wordleData = useSelector((store) => store.wordle);
+  const { word, guesses, showResultOfGuess } = wordleData;
   return (
     <div className='matrix'>
       {guesses.map((guess, guessIndex) => {
@@ -9,7 +10,13 @@ export const Matrix = () => {
           <div className='row' key={`row-${guessIndex + 1}`}>
             {[...guess.padEnd(5, ' ')].map((letter, letterIndex) => {
               return (
-                <div className='letter' key={`letter-${letterIndex + 1}`}>
+                <div
+                  data-show_result={showResultOfGuess.includes(guessIndex + 1)}
+                  data-present_in_word={word.includes(letter)}
+                  data-in_correct_position={word[letterIndex] === letter}
+                  className='letter'
+                  key={`letter-${letterIndex + 1}`}
+                >
                   {letter}
                 </div>
               );
