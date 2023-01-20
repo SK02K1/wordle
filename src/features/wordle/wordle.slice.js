@@ -10,6 +10,8 @@ const initialState = {
   guesses: Array.from({ length: 6 }, () => ''),
   showResultOfGuess: [],
   isWordGuessed: false,
+  isDarkmodeEnabled:
+    JSON.parse(localStorage.getItem('wordle-darkmode-enabled')) ?? false,
 };
 
 const wordleSlice = createSlice({
@@ -42,6 +44,11 @@ const wordleSlice = createSlice({
         }
       }
     },
+    toggleTheme: (state, _) => {
+      const { isDarkmodeEnabled } = state;
+      localStorage.setItem('wordle-darkmode-enabled', !isDarkmodeEnabled);
+      state.isDarkmodeEnabled = !isDarkmodeEnabled;
+    },
   },
 });
 
@@ -49,6 +56,7 @@ export const {
   appendKeyToCurrentGuesss,
   removeLastLetterOfCurrentGuess,
   submitCurrentGuess,
+  toggleTheme,
 } = wordleSlice.actions;
 
 export const wordleReducer = wordleSlice.reducer;

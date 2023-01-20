@@ -6,7 +6,21 @@
 }
 
 .App {
-  height: 90vh;
+  min-height: 100vh;
+  background-color: var(--clr-app-bg);
+  color: var(--clr-default-txt);
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+.theme-icon {
+  cursor: pointer;
 }
 
 .matrix,
@@ -32,20 +46,20 @@
 }
 
 [data-show_result='true'] {
-  color: white;
+  color: var(--clr-submited-txt);
   border: none;
 }
 
 [data-show_result='true'][data-present_in_word='false'] {
-  background-color: #787c7e;
+  background-color: var(--clr-not-in-word-bg);
 }
 
 [data-show_result='true'][data-present_in_word='true'][data-in_correct_position='false'] {
-  background-color: #c9b458;
+  background-color: var(--clr-in-word-bg);
 }
 
 [data-show_result='true'][data-present_in_word='true'][data-in_correct_position='true'] {
-  background-color: #6aa964;
+  background-color: var(--clr-correct-position-bg);
 }
 
 .keyboard {
@@ -53,7 +67,8 @@
 }
 
 .btn-key {
-  background-color: #d3d6da;
+  background-color: var(--clr-keys-bg);
+  color: var(--clr-default-txt);
   font-size: 0.85rem;
   border: none;
   padding: 1rem 0.6rem;

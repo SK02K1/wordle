@@ -1,11 +1,29 @@
 :root {
+  --clr-app-bg: #ffffff;
+  --clr-correct-position-bg: #6aa964;
+  --clr-in-word-bg: #c9b458;
+  --clr-not-in-word-bg: #787c7e;
   --clr-matrix-border: #d3d6da;
+  --clr-default-txt: #000000;
+  --clr-submited-txt: #ffffff;
+  --clr-keys-bg: #d3d6da;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+[data-darkmode_enabled='true'] {
+  --clr-app-bg: #121213;
+  --clr-correct-position-bg: #538d4e;
+  --clr-in-word-bg: #b49f3a;
+  --clr-not-in-word-bg: #3a3a3c;
+  --clr-matrix-border: #565758;
+  --clr-default-txt: #ffffff;
+  --clr-submited-txt: #ffffff;
+  --clr-keys-bg: #808384;
 }
 
 body {
