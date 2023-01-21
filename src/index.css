@@ -4,6 +4,7 @@
   --clr-in-word-bg: #c9b458;
   --clr-not-in-word-bg: #787c7e;
   --clr-matrix-border: #d3d6da;
+  --clr-letter-cell-border: #787c7e;
   --clr-default-txt: #000000;
   --clr-submited-txt: #ffffff;
   --clr-keys-bg: #d3d6da;
@@ -20,7 +21,8 @@
   --clr-correct-position-bg: #538d4e;
   --clr-in-word-bg: #b49f3a;
   --clr-not-in-word-bg: #3a3a3c;
-  --clr-matrix-border: #565758;
+  --clr-matrix-border: #3a3a3c;
+  --clr-letter-cell-border: #565758;
   --clr-default-txt: #ffffff;
   --clr-submited-txt: #ffffff;
   --clr-keys-bg: #808384;

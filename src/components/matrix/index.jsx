@@ -14,6 +14,7 @@ export const Matrix = () => {
                   data-show_result={showResultOfGuess.includes(guessIndex + 1)}
                   data-present_in_word={word.includes(letter)}
                   data-in_correct_position={word[letterIndex] === letter}
+                  data-is_letter={letter !== ' '}
                   className='letter'
                   key={`letter-${letterIndex + 1}`}
                 >

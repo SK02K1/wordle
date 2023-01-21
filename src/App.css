@@ -45,6 +45,28 @@
   font-size: 2rem;
 }
 
+.letter[data-is_letter='true'] {
+  border-color: var(--clr-letter-cell-border);
+  animation-name: LETTER_BOUNCE;
+  animation-duration: 60ms;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.21, 1.03, 0.12, 0.74);
+}
+
+@keyframes LETTER_BOUNCE {
+  0% {
+    scale: 1;
+  }
+
+  50% {
+    scale: 1.2;
+  }
+
+  100% {
+    scale: 1;
+  }
+}
+
 [data-show_result='true'] {
   color: var(--clr-submited-txt);
   border: none;
