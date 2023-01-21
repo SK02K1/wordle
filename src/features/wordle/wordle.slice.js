@@ -38,26 +38,31 @@ const wordleSlice = createSlice({
     },
 
     submitCurrentGuess: (state, _) => {
-      const { word, isWordGuessed, guessCounter, guesses, showResultOfGuess } =
-        state;
+      const { word, guessCounter, guesses, isWordGuessed } = state;
       const currentGuess = guesses[guessCounter];
 
-      if (currentGuess?.length === 5 && guessCounter < 6) {
-        if (currentGuess.toLowerCase() in dictionary) {
-          showResultOfGuess.push(guessCounter + 1);
-          state.guessCounter += 1;
-        } else {
-          toast('Not in word list', toastOptions);
+      if (!isWordGuessed) {
+        if (guessCounter < 6) {
+          if (currentGuess.length === 5) {
+            if (currentGuess.toLowerCase() in dictionary) {
+              if (currentGuess === word) {
+                toast('क्या बात है', { icon: '🎉' });
+                confetti({ particleCount: 500, spread: 180, confettiColors });
+                state.isWordGuessed = true;
+              } else {
+                if (guessCounter === 5) {
+                  toast(word);
+                }
+              }
+              state.guessCounter += 1;
+              state.showResultOfGuess.push(guessCounter + 1);
+            } else {
+              toast('Not in word list', toastOptions);
+            }
+          } else {
+            toast('Not enough letters', toastOptions);
+          }
         }
-
-        if (currentGuess === word) {
-          confetti({ particleCount: 500, spread: 180, confettiColors });
-          state.isWordGuessed = true;
-        }
-      }
-
-      if (currentGuess?.length !== 5 && !isWordGuessed) {
-        toast('Not enough letters', toastOptions);
       }
     },
 
