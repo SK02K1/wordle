@@ -6,7 +6,21 @@
 }
 
 .App {
-  height: 90vh;
+  min-height: 100vh;
+  background-color: var(--clr-app-bg);
+  color: var(--clr-default-txt);
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+.theme-icon {
+  cursor: pointer;
 }
 
 .matrix,
@@ -16,6 +30,48 @@
 
 .row {
   display: flex;
+}
+
+[data-shake_row='true'] {
+  animation-name: SHAKE_ROW;
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.41, 0.73, 0.83, 0.67);
+}
+
+@keyframes SHAKE_ROW {
+  0% {
+    transform: translateX(8px);
+  }
+  10% {
+    transform: translateX(-8px);
+  }
+  20% {
+    transform: translateX(8px);
+  }
+  30% {
+    transform: translateX(-8px);
+  }
+  40% {
+    transform: translateX(8px);
+  }
+  50% {
+    transform: translateX(-8px);
+  }
+  60% {
+    transform: translateX(8px);
+  }
+  70% {
+    transform: translateX(-5px);
+  }
+  80% {
+    transform: translateX(3px);
+  }
+  90% {
+    transform: translateX(2px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
 }
 
 .letter {
@@ -31,21 +87,43 @@
   font-size: 2rem;
 }
 
+.letter[data-is_letter='true'] {
+  border-color: var(--clr-letter-cell-border);
+  animation-name: LETTER_BOUNCE;
+  animation-duration: 60ms;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.21, 1.03, 0.12, 0.74);
+}
+
+@keyframes LETTER_BOUNCE {
+  0% {
+    scale: 1;
+  }
+
+  50% {
+    scale: 1.2;
+  }
+
+  100% {
+    scale: 1;
+  }
+}
+
 [data-show_result='true'] {
-  color: white;
+  color: var(--clr-submited-txt);
   border: none;
 }
 
 [data-show_result='true'][data-present_in_word='false'] {
-  background-color: #787c7e;
+  background-color: var(--clr-not-in-word-bg);
 }
 
 [data-show_result='true'][data-present_in_word='true'][data-in_correct_position='false'] {
-  background-color: #c9b458;
+  background-color: var(--clr-in-word-bg);
 }
 
 [data-show_result='true'][data-present_in_word='true'][data-in_correct_position='true'] {
-  background-color: #6aa964;
+  background-color: var(--clr-correct-position-bg);
 }
 
 .keyboard {
@@ -53,7 +131,8 @@
 }
 
 .btn-key {
-  background-color: #d3d6da;
+  background-color: var(--clr-keys-bg);
+  color: var(--clr-default-txt);
   font-size: 0.85rem;
   border: none;
   padding: 1rem 0.6rem;

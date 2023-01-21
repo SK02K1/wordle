@@ -1,6 +1,7 @@
 import confetti from 'canvas-confetti';
+import { toast } from 'react-hot-toast';
 import { createSlice } from '@reduxjs/toolkit';
-import { confettiColors } from 'constants';
+import { confettiColors, dictionary } from 'constants';
 
 const name = 'wordle';
 
@@ -10,7 +11,12 @@ const initialState = {
   guesses: Array.from({ length: 6 }, () => ''),
   showResultOfGuess: [],
   isWordGuessed: false,
+  shakeRowIndex: null,
+  isDarkmodeEnabled:
+    JSON.parse(localStorage.getItem('wordle-darkmode-enabled')) ?? false,
 };
+
+const toastOptions = { duration: 1200 };
 
 const wordleSlice = createSlice({
   name,
@@ -23,6 +29,7 @@ const wordleSlice = createSlice({
         guesses[guessCounter] = currentGuess + payload.key;
       }
     },
+
     removeLastLetterOfCurrentGuess: (state, _) => {
       const { guessCounter, guesses } = state;
       const currentGuess = guesses[guessCounter];
@@ -30,17 +37,45 @@ const wordleSlice = createSlice({
         guesses[guessCounter] = currentGuess.slice(0, -1);
       }
     },
+
     submitCurrentGuess: (state, _) => {
-      const { word, guessCounter, guesses, showResultOfGuess } = state;
+      const { word, guessCounter, guesses, isWordGuessed } = state;
       const currentGuess = guesses[guessCounter];
-      if (currentGuess?.length === 5 && guessCounter < 6) {
-        showResultOfGuess.push(guessCounter + 1);
-        state.guessCounter += 1;
-        if (currentGuess === word) {
-          confetti({ particleCount: 500, spread: 180, confettiColors });
-          state.isWordGuessed = true;
+
+      if (!isWordGuessed) {
+        if (guessCounter < 6) {
+          if (currentGuess.length === 5) {
+            if (currentGuess.toLowerCase() in dictionary) {
+              if (currentGuess === word) {
+                toast('क्या बात है', { icon: '🎉' });
+                confetti({ particleCount: 500, spread: 180, confettiColors });
+                state.isWordGuessed = true;
+              } else {
+                if (guessCounter === 5) {
+                  toast(word);
+                }
+              }
+              state.guessCounter += 1;
+              state.showResultOfGuess.push(guessCounter + 1);
+            } else {
+              state.shakeRowIndex = guessCounter;
+              toast('Not in word list', toastOptions);
+            }
+          } else {
+            state.shakeRowIndex = guessCounter;
+            toast('Not enough letters', toastOptions);
+          }
         }
       }
+    },
+
+    toggleTheme: (state, _) => {
+      const { isDarkmodeEnabled } = state;
+      localStorage.setItem('wordle-darkmode-enabled', !isDarkmodeEnabled);
+      state.isDarkmodeEnabled = !isDarkmodeEnabled;
+    },
+    resetShakeRowIndex: (state, _) => {
+      state.shakeRowIndex = null;
     },
   },
 });
@@ -49,6 +84,8 @@ export const {
   appendKeyToCurrentGuesss,
   removeLastLetterOfCurrentGuess,
   submitCurrentGuess,
+  resetShakeRowIndex,
+  toggleTheme,
 } = wordleSlice.actions;
 
 export const wordleReducer = wordleSlice.reducer;
