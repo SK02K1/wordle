@@ -11,6 +11,7 @@ const initialState = {
   guesses: Array.from({ length: 6 }, () => ''),
   showResultOfGuess: [],
   isWordGuessed: false,
+  shakeRowIndex: null,
   isDarkmodeEnabled:
     JSON.parse(localStorage.getItem('wordle-darkmode-enabled')) ?? false,
 };
@@ -57,9 +58,11 @@ const wordleSlice = createSlice({
               state.guessCounter += 1;
               state.showResultOfGuess.push(guessCounter + 1);
             } else {
+              state.shakeRowIndex = guessCounter;
               toast('Not in word list', toastOptions);
             }
           } else {
+            state.shakeRowIndex = guessCounter;
             toast('Not enough letters', toastOptions);
           }
         }
@@ -71,6 +74,9 @@ const wordleSlice = createSlice({
       localStorage.setItem('wordle-darkmode-enabled', !isDarkmodeEnabled);
       state.isDarkmodeEnabled = !isDarkmodeEnabled;
     },
+    resetShakeRowIndex: (state, _) => {
+      state.shakeRowIndex = null;
+    },
   },
 });
 
@@ -78,6 +84,7 @@ export const {
   appendKeyToCurrentGuesss,
   removeLastLetterOfCurrentGuess,
   submitCurrentGuess,
+  resetShakeRowIndex,
   toggleTheme,
 } = wordleSlice.actions;
 
